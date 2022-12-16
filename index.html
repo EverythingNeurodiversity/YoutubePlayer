@@ -1,0 +1,89 @@
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<!-- HTML for the transcript -->
+<div id="transcript">
+  <p class="line" data-start="0" data-end="5">
+    This is the first line of the transcript.
+  </p>
+  <p class="line" data-start="5" data-end="10">
+    This is the second line of the transcript.
+  </p>
+  <!-- Add additional lines of the transcript here -->
+</div>
+
+<!-- HTML for the YouTube video -->
+<div id="video">
+  <!-- The YouTube player will be added here -->
+</div>
+
+<style>
+  /* CSS for the transcript */
+  #transcript {
+    width: 30%;
+    float: left;
+  }
+
+  .line {
+    cursor: pointer;
+  }
+
+  /* CSS for the YouTube video */
+  #video {
+    width: 70%;
+    float: right;
+  }
+</style>
+
+<script>
+ 
+// Load the YouTube API
+const tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+document.head.appendChild(tag);
+
+// Create a variable to store the player object
+let player;
+
+// Create a function to initialize the YouTube player
+function onYouTubeIframeAPIReady() {
+  // Create a new player
+  player = new YT.Player('video', {
+    width: '560',
+    height: '315',
+    videoId: 'QmOF0crdyRU',
+    events: {
+      'onReady': onPlayerReady
+    }
+  });
+}
+
+// Create a function to handle the player's "ready" event
+function onPlayerReady(event) {
+  // Get the transcript element
+  const transcript = document.getElementById('transcript');
+
+  // Add a click event listener to the transcript
+  transcript.addEventListener('click', (event) => {
+    // Check if the user clicked on a line of the transcript
+    if (event.target.classList.contains('line')) {
+      // Get the start and end times for the line that was clicked
+      const start = event.target.getAttribute('data-start');
+      const end = event.target.getAttribute('data-end');
+
+      // Use the YouTube API to load the video and start playing it at the specified time
+      player.loadVideoById({
+        'videoId': 'QmOF0crdyRU',
+        'startSeconds': start,
+        'endSeconds': end
+      });
+    }
+  });
+}
+
+
+
+
+
+
+ 
+</script>
